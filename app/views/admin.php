@@ -1,3 +1,7 @@
+<?php 
+require_once '../app/controllers/UserController.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

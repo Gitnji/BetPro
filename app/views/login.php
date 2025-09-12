@@ -1,3 +1,7 @@
+<?php 
+require_once 'C:\xampp\htdocs\BetPro\app\controllers\UserController.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,7 +151,7 @@
             </div>
         </div>
 
-        <!-- Demo Accounts -->
+        <!-- Demo Accounts
         <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 border border-blue-200 dark:border-gray-600">
             <div class="text-center mb-4">
                 <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
@@ -165,11 +169,11 @@
                     Demo Admin
                 </button>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <!-- Success Modal -->
-    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+    <!-- <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full transform transition-all duration-300 scale-95">
             <div class="p-6 text-center">
                 <div class="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4">
@@ -182,7 +186,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Forgot Password Modal -->
     <div id="forgotPasswordModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
@@ -222,7 +226,7 @@
     <!-- Error Message Container -->
     <div id="messageContainer" class="fixed top-4 right-4 z-50"></div>
 
-    <script>
+    <!-- <script>
         // Initialize dark mode
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
@@ -305,28 +309,28 @@
         }
 
         // Demo login functions
-        function loginAsDemo(type) {
-            const submitBtn = document.getElementById('submit-btn');
-            const submitText = document.getElementById('submit-text');
-            const submitLoading = document.getElementById('submit-loading');
+        // function loginAsDemo(type) {
+        //     const submitBtn = document.getElementById('submit-btn');
+        //     const submitText = document.getElementById('submit-text');
+        //     const submitLoading = document.getElementById('submit-loading');
             
-            submitBtn.disabled = true;
-            submitText.textContent = 'Signing in...';
-            submitLoading.classList.remove('hidden');
+        //     submitBtn.disabled = true;
+        //     submitText.textContent = 'Signing in...';
+        //     submitLoading.classList.remove('hidden');
             
-            setTimeout(() => {
-                document.getElementById('successModal').classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
+        //     setTimeout(() => {
+        //         document.getElementById('successModal').classList.remove('hidden');
+        //         document.body.style.overflow = 'hidden';
                 
-                setTimeout(() => {
-                    if (type === 'admin') {
-                        window.location.href = 'admin-dashboard.html';
-                    } else {
-                        window.location.href = 'dashboard.html';
-                    }
-                }, 2000);
-            }, 1500);
-        }
+        //         setTimeout(() => {
+        //             if (type === 'admin') {
+        //                 window.location.href = 'admin-dashboard.html';
+        //             } else {
+        //                 window.location.href = 'dashboard.html';
+        //             }
+        //         }, 2000);
+        //     }, 1500);
+        // }
 
         // Form validation
         function validateForm() {
@@ -373,16 +377,16 @@
             submitLoading.classList.remove('hidden');
             
             // Simulate login process
-            setTimeout(() => {
-                // Show success modal
-                document.getElementById('successModal').classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
+            // setTimeout(() => {
+            //     // Show success modal
+            //     document.getElementById('successModal').classList.remove('hidden');
+            //     document.body.style.overflow = 'hidden';
                 
-                // Redirect after delay
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 2000);
-            }, 1500);
+            //     // Redirect after delay
+            //     setTimeout(() => {
+            //         window.location.href = 'dashboard.html';
+            //     }, 2000);
+            // }, 1500);
         });
 
         // Forgot password form submission
@@ -411,6 +415,6 @@
                 }
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>

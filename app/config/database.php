@@ -1,31 +1,20 @@
 <?php 
 class Database {
-    private $host = 'localhost';
-    private $db_name = 'betpro';
-    private $user = 'root';
-    private $password = '';
+    private $host = "localhost";
+    private $db_name = "betpro";
+    private $db_user= "root";
+    private $db_password = "";
+    private $conn;
 
-    private $db_handler;
-    private $error;
-
-    public function __construct(){
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
-        $options = array(
-            PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        );
-
+    public function connect() {
         try {
-            $this->db_handler = new PDO($dsn, $this->user, $this->password, $options);
-        } catch(PDOException $e) {
-            $this->error = $e->getMessage();
-            echo $this->error;
+            $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->db_user, $this->db_password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conn;
+        } catch(PDOException $exception) {
+            echo "Connection error: " . $exception->getMessage();
+            return null;
         }
-        
     }
-    public function getConnection(){
-            return $this->db_handler;
-        }
 }
-
 ?>

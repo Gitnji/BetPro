@@ -1,52 +1,51 @@
 <?php 
-include_once '../config/database.php';
-include_once '../models/User.php';
+require_once __DIR__ . '/../models/User.php';
 
-
-class UserController {
-    private $db;
-    private $userModel;
-
-    public function __construct(){
-        $database = new Database();
-        $this->db = $database->getConnection();
-        $this->userModel = new User($this->db);
+class UserController{
+    private $user;
+    public function __construct($user){
+        $this->user = $user;
     }
-    public function handleRequest($action, $data){
-        switch($action){
-            case 'register':
-                return $this->register($data['username'], $data['email'], $data['password']);
-            case 'login':
-                return $this->login($data['username'], $data['password']);
-            case 'update':
-                return $this->update($data['username'], $data['email'], $data['password']);
-            case 'delete':
-                return $this->delete($data['username']);
-            case 'getBettingHistory':
-                return $this->getBettingHistory($data['username']);
-            default:
-                return ['error' => 'Invalid action'];
+
+    public function handleRegistration($data){
+        if (!isset($data['username']) || !isset($data['email']) || !isset($data['password'])) {
+            http_response_code(400);
+            echo json_encode(["message" => "Missing required fields"]);
+            return;
+        }
+
+        if ($this->user->Register($data['username'], $data['email'], $data['password'])) {
+            http_response_code(201);
+            echo json_encode(["message" => "User registered successfully"]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["message" => "Registration failed"]);
+        }
+
+        if ($this->user->Register($data["username"], $data["email"], $data["password"])) {
+            http_response_code(201);
+            echo json_encode(["message" => "User registered successfully"]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["message" => "Registration failed"]);
         }
     }
 
-    public function register($username, $email, $password){
-        return $this->userModel->Register($username, $email, $password);
-    }
+    public function handleLogin($data){
+        if (!isset($data['email']) || !isset($data['password'])) {
+            http_response_code(400);
+            echo json_encode(["message" => "Missing required fields"]);
+            return;
+        }
 
-    public function login($username, $password){
-        return $this->userModel->Login($username, $password);
-    }
-
-    public function update($username, $email, $password){
-        return $this->userModel->Update($username, $email, $password);
-    }
-
-    public function delete($username){
-        return $this->userModel->Delete($username);
-    }
-
-    public function getBettingHistory($username){
-        return $this->userModel->GetBettingHistory($username);
+        $user = $this ->user->Login($data['email'], $data['password']);
+        if ($user && password_verify($data['password'], $user['password'])) {
+            http_response_code(200);
+            $redirectUrl = ($user['role'] === 'admin') ? '../app/views/admin.php': '../app/views/dashboard.php';
+            echo json_encode(["message" => "Login successful", "user" => $user, "redirect" => $redirectUrl]);
+        } else {
+            http_response_code(401);
+            echo json_encode(["message" => "Invalid email or password"]);
     }
 }
-?>
+}

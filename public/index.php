@@ -1,3 +1,7 @@
+<?php 
+require_once '../app/controllers/UserController.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,8 +44,8 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="login.html" class="text-gray-600 hover:text-gray-900">Log In</a>
-                    <a href="register.html" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Sign Up</a>
+                    <a href="../app/views/login.php" class="text-gray-600 hover:text-gray-900">Log In</a>
+                    <a href="../app/views/register.php" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Sign Up</a>
                     <button class="md:hidden" onclick="toggleMobileMenu()">
                         <i class="fas fa-bars text-gray-500"></i>
                     </button>
@@ -391,21 +395,21 @@
             });
         }
 
-        // Authentication functions
-        function loginUser() {
-            // Simulate login process
-            alert('Login successful! Redirecting to dashboard...');
-            closeModal('loginModal');
-            // In a real app, you would validate credentials and redirect
-            window.location.href = 'dashboard.html';
-        }
+        // // Authentication functions
+        // function loginUser() {
+        //     // Simulate login process
+        //     alert('Login successful! Redirecting to dashboard...');
+        //     closeModal('loginModal');
+        //     // In a real app, you would validate credentials and redirect
+        //     window.location.href = 'dashboard.html';
+        // }
 
-        function registerUser() {
-            // Simulate registration process
-            alert('Registration successful! Please check your email for verification.');
-            closeModal('registerModal');
-            // In a real app, you would send registration data to server
-        }
+        // function registerUser() {
+        //     // Simulate registration process
+        //     alert('Registration successful! Please check your email for verification.');
+        //     closeModal('registerModal');
+        //     // In a real app, you would send registration data to server
+        // }
 
 
 

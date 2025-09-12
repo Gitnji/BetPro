@@ -1,5 +1,5 @@
 <?php 
-
+require_once 'C:\xampp\htdocs\BetPro\app\controllers\UserController.php';
 ?>
 
 <!DOCTYPE html>
@@ -280,7 +280,7 @@
     <!-- Error Message Container -->
     <div id="messageContainer" class="fixed top-4 right-4 z-50"></div>
 
-    <script>
+    <!-- <script>
         // Initialize dark mode
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
@@ -485,16 +485,16 @@
             submitLoading.classList.remove('hidden');
             
             // Simulate registration process
-            setTimeout(() => {
-                // Show success modal
-                document.getElementById('successModal').classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
+            // setTimeout(() => {
+            //     // Show success modal
+            //     document.getElementById('successModal').classList.remove('hidden');
+            //     document.body.style.overflow = 'hidden';
                 
-                // Redirect after delay
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 2000);
-            }, 1500);
+            //     // Redirect after delay
+            //     setTimeout(() => {
+            //         window.location.href = 'dashboard.html';
+            //     }, 2000);
+            // }, 1500);
         });
 
         // Close modals when clicking outside
@@ -507,6 +507,6 @@
                 }
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>
