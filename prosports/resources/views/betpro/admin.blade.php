@@ -47,9 +47,9 @@
                     <div class="relative">
                         <button class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold text-sm">
-                                AD
+                                <i class="fa-solid fa-user"></i>
                             </div>
-                            <span class="hidden md:block">Admin</span>
+                            <span class="hidden md:block">Nji</span>
                             <i class="fas fa-chevron-down text-sm"></i>
                         </button>
                     </div>

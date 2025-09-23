@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -68,4 +69,13 @@ class AdminController extends Controller
     {
         //
     }
+//     public function showname(){
+//        $user = Auth::user();
+
+    
+//     if ($user) {
+        
+//         return view('betpro.admin', compact('user'));
+//    }
+//    }
 }
