@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BetsController;
 
 Route::resource('admin', AdminController::class);
 Route::resource('users', AuthController::class);
@@ -19,7 +20,10 @@ Route::get('/login', [AuthController::class, 'login'])->name('betpro.login');
 Route::get('/register', [AuthController::class,'register'] );
 Route::get('/admin', [AdminController::class, 'index'])->name('betpro.admin');
 
-Route::get('/showname', [AuthController::class, 'showname'])->name('betpro.dashboard');
+Route::get('/user', [AuthController::class, 'user'])->name('betpro.dashboard');
+
+route::get('/admin', [BetsController::class, 'index'])->name('betpro.admin');
+route::get('/admin', [BetsController::class, 'store'])->name('betpro.admin');
 
 Route::get('/login', function () {
     return view('betpro.login');

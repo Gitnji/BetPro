@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>prosports</title>
+    <title>BetPro</title>
     <link rel="stylesheet" href="{{ asset('resources/css/app.css') }}">
 </head>
 <body>

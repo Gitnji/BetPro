@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create("bet_tracker", function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->foreignId("user_id");
+            $table->foreignId("bets_id");
+            $table->enum("status", ["won", "lost", "pending"])->default("pending");
+            $table->decimal("stake",10,2)->default(0);
+            $table->decimal("odds",10,2)->default(0);
+            $table->timestamps();
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists("");
     }
 };

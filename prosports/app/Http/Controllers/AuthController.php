@@ -44,7 +44,7 @@ class AuthController extends Controller
         }
    }
 
-   public function showname(){
+   public function user(){
        $user = Auth::user();
 
     

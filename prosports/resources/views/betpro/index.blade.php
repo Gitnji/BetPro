@@ -75,7 +75,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <button  class="bg-accent text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-200">
-                        <a href="register.html"> Start Free Trial</a>
+                        <a href="{{ route('betpro.register') }}"> Start Free Trial</a>
                     </button>
                     <button onclick="scrollToSection('tips')" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-primary transition duration-200">
                         View Free Tips
