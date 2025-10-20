@@ -391,7 +391,7 @@
     </div>
 
     <!-- Add Tip Modal -->
-    <div id="addTipModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+    <div id="addbets" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex justify-between items-center">
@@ -402,7 +402,7 @@
                 </div>
             </div>
             
-            <form id="addTipForm" class="p-6" action="{{ route('betpro.admin') }}" method="POST">
+            <form id="addTipForm" class="p-6" action="{{ route('betpro.admin.storebets') }}" method="POST">
                 @csrf
                 <div class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -446,8 +446,17 @@
                         </div>
                         
                         <div>
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Price (Credits) *</label>
-                            <input type="number" min="1" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="5" required>
+                            <!-- <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Plan *</label>
+                            <input type="number" min="1" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="5" required> -->
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Plan *</label>
+                            <select class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                                <option value="">Select plan</option>
+                                <option value="football">Free</option>
+                                <option value="basketball">2 to 3 Odss</option>
+                                <option value="tennis">3 Odds</option>
+                                <option value="baseball">Investment</option>
+                                <option value="hockey">High Risk</option>
+                            </select>
                         </div>
                         
                         <div>
@@ -761,17 +770,16 @@
         }
 
         // Add new tip
-        document.getElementById('addTipForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        //document.getElementById('addbets').addEventListener('submit', function(e) {
             
-            const formData = new FormData(this);
+            //const formData = new FormData(this);
             
-            showMessage('Tip added successfully!');
-            closeModal('addTipModal');
-            this.reset();
+            //showMessage('Tip added successfully!');
+            //closeModal('addTipModal');
+           // this.reset();
             
-            console.log('New tip added');
-        });
+           // console.log('New tip added');
+       // });
 
         // Add new course
         document.getElementById('addCourseForm').addEventListener('submit', function(e) {

@@ -22,8 +22,8 @@ Route::get('/admin', [AdminController::class, 'index'])->name('betpro.admin');
 
 Route::get('/user', [AuthController::class, 'user'])->name('betpro.dashboard');
 
-route::get('/admin', [BetsController::class, 'index'])->name('betpro.admin');
-route::get('/admin', [BetsController::class, 'store'])->name('betpro.admin');
+//route::get('/admin', [BetsController::class, 'index'])->name('betpro.admin');
+//route::post('/admin/addbets', [AdminController::class, 'storebets'])->name('betpro.addbets');
 
 Route::get('/login', function () {
     return view('betpro.login');
@@ -44,6 +44,4 @@ Route::get('/register', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('betpro.login');
 Route::post('/register', [AuthController::class,'register'] )->name('betpro.register');
 
-
-
-
+route::post('/storebets',[AdminController::class, 'storebets'])->name('betpro.admin.storebets');

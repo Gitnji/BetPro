@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use App\Models\users;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\bets;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -17,8 +18,9 @@ class AdminController extends Controller
     {
     $users = Admin::all();
     $totalUsers = Admin::count();
+    $bets = bets::all();
 
-    return view('betpro.admin', compact('users', 'totalUsers'));
+    return view('betpro.admin', compact('users', 'totalUsers', 'bets'));
 
     }
 
@@ -68,14 +70,35 @@ class AdminController extends Controller
     public function destroy(admin $admin)
     {
         //
-    }
-//     public function showname(){
-//        $user = Auth::user();
 
-    
-//     if ($user) {
-        
-//         return view('betpro.admin', compact('user'));
-//    }
-//    }
+    }
+    public function storebets(Request $request)
+    {
+        $request->validate([
+            'bet_date' => 'required|date',
+            'sport' => 'required|string|max:255',
+            'confidence' => 'required|integer|min:0|max:100',
+            'event' => 'required|string|max:255',
+            'bet_type' => 'required|string|max:255',
+            'odds' => 'required|numeric',
+            'plan' => 'required|string|max:255',
+            'event_time' => 'required|date',
+            'analysis' => 'nullable|string',
+        ]);
+        $bets = new bets();
+        $bets->bet_date = $request->bet_date;
+        $bets->sport = $request->sport;
+        $bets->confidence = $request->confidence;
+        $bets->event = $request->event;
+        $bets->bet_type = $request->bet_type;
+        $bets->odds = $request->odds;
+        $bets->plan = $request->plan;
+        $bets->event_time = $request->event_time;
+        $bets->analysis = $request->analysis;
+        if($bets->save()){
+            return redirect(route('betpro.admin'))->with("success","Bet created");
+        }else{
+            return redirect(route("betpro.admin"))->with("error","check your bets");
+    }
+    }
 }
