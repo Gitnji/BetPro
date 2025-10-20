@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\bets;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Auth;
 
 class AdminController extends Controller
@@ -74,6 +75,9 @@ class AdminController extends Controller
     }
     public function storebets(Request $request)
     {
+    // Log incoming request for debugging
+    Log::info('storebets called', ['input' => $request->all(), 'ip' => $request->ip()]);
+    try {
         $request->validate([
             'bet_date' => 'required|date',
             'sport' => 'required|string|max:255',
@@ -94,11 +98,16 @@ class AdminController extends Controller
         $bets->odds = $request->odds;
         $bets->plan = $request->plan;
         $bets->event_time = $request->event_time;
-        $bets->analysis = $request->analysis;
+    // analysis column is non-nullable in DB; default to empty string when not provided
+    $bets->analysis = $request->analysis ?? '';
         if($bets->save()){
             return redirect(route('betpro.admin'))->with("success","Bet created");
         }else{
             return redirect(route("betpro.admin"))->with("error","check your bets");
     }
+        } catch (\Throwable $e) {
+            Log::error('storebets error', ['exception' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            return redirect(route('betpro.admin'))->with("error","An error occurred, check logs");
+        }
     }
 }

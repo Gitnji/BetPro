@@ -391,7 +391,7 @@
     </div>
 
     <!-- Add Tip Modal -->
-    <div id="addbets" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+    <div id="addTipModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex justify-between items-center">
@@ -404,11 +404,12 @@
             
             <form id="addTipForm" class="p-6" action="{{ route('betpro.admin.storebets') }}" method="POST">
                 @csrf
+                <input type="hidden" name="bet_date" value="{{ date('Y-m-d') }}">
                 <div class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Sport *</label>
-                            <select class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            <select name="sport" id="sportInput" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
                                 <option value="">Select Sport</option>
                                 <option value="football">Football</option>
                                 <option value="basketball">Basketball</option>
@@ -419,8 +420,8 @@
                         </div>
                         
                         <div>
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Confidence Level *</label>
-                            <select class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Confidence Level (label)</label>
+                            <select name="confidence_level" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                                 <option value="">Select Confidence</option>
                                 <option value="high">High</option>
                                 <option value="medium">Medium</option>
@@ -431,48 +432,46 @@
 
                     <div>
                         <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Event *</label>
-                        <input type="text" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g., Man City vs Arsenal" required>
+                        <input type="text" name="event" id="eventInput" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g., Man City vs Arsenal" required>
                     </div>
 
                     <div>
                         <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Bet Type *</label>
-                        <input type="text" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g., Over 2.5 Goals" required>
+                        <input type="text" name="bet_type" id="betTypeInput" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g., Over 2.5 Goals" required>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Odds *</label>
-                            <input type="number" step="0.01" min="1.01" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="1.85" required>
+                            <input type="number" name="odds" id="oddsInput" step="0.01" min="1.01" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="1.85" required>
                         </div>
                         
                         <div>
                             <!-- <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Plan *</label>
                             <input type="number" min="1" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="5" required> -->
                             <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Plan *</label>
-                            <select class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            <select name="plan" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
                                 <option value="">Select plan</option>
-                                <option value="football">Free</option>
-                                <option value="basketball">2 to 3 Odss</option>
-                                <option value="tennis">3 Odds</option>
-                                <option value="baseball">Investment</option>
-                                <option value="hockey">High Risk</option>
+                                <option value="free">Free</option>
+                                <option value="2 to 3 odds">2 to 3 odds</option>
+                                <option value="investment">Investment</option>
                             </select>
                         </div>
                         
                         <div>
                             <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Accuracy (%) *</label>
-                            <input type="number" min="1" max="100" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="85" required>
+                            <input type="number" name="confidence" min="1" max="100" id="confidenceInput" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="85" required>
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Event Time *</label>
-                        <input type="datetime-local" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        <input type="datetime-local" name="event_time" id="eventTimeInput" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
                     </div>
 
                     <div>
                         <label class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Analysis (Optional)</label>
-                        <textarea rows="3" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none" placeholder="Provide analysis or reasoning for this tip..."></textarea>
+                        <textarea name="analysis" rows="3" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none" placeholder="Provide analysis or reasoning for this tip..."></textarea>
                     </div>
                 </div>
                 
@@ -769,17 +768,9 @@
             }, 5000);
         }
 
-        // Add new tip
-        //document.getElementById('addbets').addEventListener('submit', function(e) {
-            
-            //const formData = new FormData(this);
-            
-            //showMessage('Tip added successfully!');
-            //closeModal('addTipModal');
-           // this.reset();
-            
-           // console.log('New tip added');
-       // });
+    // Add new tip: let the form submit normally to the server so
+    // server-side validation and saving run before closing/resetting.
+    // (No client-side reset here — it was clearing inputs before submit.)
 
         // Add new course
         document.getElementById('addCourseForm').addEventListener('submit', function(e) {
