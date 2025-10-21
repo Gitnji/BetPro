@@ -1,6 +1,7 @@
 <?php
 
 //use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LandingController;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
@@ -11,9 +12,12 @@ use App\Http\Controllers\BetsController;
 Route::resource('admin', AdminController::class);
 Route::resource('users', AuthController::class);
 
-Route::get('/', function () {
-    return view('betpro.index');
-})->name('index');
+// Route::get('/',function(){
+//     return view('betpro.index');
+// })->name('index');
+
+//optional route
+route::get('/',[LandingController::class, 'index'])->name('index');
 
 //get routes
 Route::get('/login', [AuthController::class, 'login'])->name('betpro.login');

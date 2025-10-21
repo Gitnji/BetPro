@@ -212,6 +212,7 @@
             </div>
 
             <!-- Tips Grid -->
+             @foreach ($bets as $bet)
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border-2 border-transparent hover:border-primary transition-all duration-200">
                     <div class="flex justify-between items-start mb-4">
@@ -219,7 +220,7 @@
                             <div class="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
                                 <i class="fas fa-futbol text-blue-600 dark:text-blue-400"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Premier League</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Fixture</h3>
                         </div>
                         <div class="flex space-x-2">
                             <button onclick="editTip('tip1')" class="text-primary hover:text-opacity-80 transition-colors">
@@ -230,19 +231,19 @@
                             </button>
                         </div>
                     </div>
-                    <p class="text-gray-700 dark:text-gray-300 mb-2 font-medium">Manchester City vs Arsenal</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Over 2.5 Goals @ 1.85</p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-2 font-medium">{{ $bet->event }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{{$bet->bet_type  }}</p>
                     <div class="flex justify-between items-center mb-3">
-                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">High Confidence</span>
-                        <span class="text-sm text-gray-500 dark:text-gray-400">15:00 GMT</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Confidence</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400"></span>
                     </div>
                     <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-600 dark:text-gray-400">Accuracy: <span class="font-semibold text-green-600">85%</span></span>
-                        <span class="text-gray-600 dark:text-gray-400">Price: <span class="font-semibold text-primary">5 credits</span></span>
+                        <span class="text-gray-600 dark:text-gray-400">Accuracy: <span class="font-semibold text-green-600">{{ $bet->confidence }}</span></span>
+                        <span class="text-gray-600 dark:text-gray-400">Plan: <span class="font-semibold text-primary">{{ $bet->plan }}</span></span>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border-2 border-transparent hover:border-primary transition-all duration-200">
+                <!-- <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border-2 border-transparent hover:border-primary transition-all duration-200">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center space-x-3">
                             <div class="p-2 bg-orange-100 dark:bg-orange-900 rounded-lg">
@@ -269,7 +270,8 @@
                         <span class="text-gray-600 dark:text-gray-400">Accuracy: <span class="font-semibold text-green-600">78%</span></span>
                         <span class="text-gray-600 dark:text-gray-400">Price: <span class="font-semibold text-primary">3 credits</span></span>
                     </div>
-                </div>
+                </div> -->
+                @endforeach
             </div>
         </section>
 
@@ -859,6 +861,7 @@
         function showDeleteConfirmation(itemType, onConfirm) {
             const modal = document.createElement('div');
             modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            // Safely inject content into modal. onConfirm is a function; we'll call it from the click handler instead of serializing.
             modal.innerHTML = `
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full">
                     <div class="p-6">
@@ -866,17 +869,21 @@
                             <i class="fas fa-trash text-red-600 dark:text-red-400 text-2xl"></i>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white text-center mb-2">Confirm Deletion</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-center mb-6">Are you sure you want to delete this ${itemType}? This action cannot be undone.</p>
+                        <p id="delete-confirmation-text" class="text-gray-600 dark:text-gray-400 text-center mb-6"></p>
                         <div class="flex space-x-3">
-                            <button onclick="this.closest('.fixed').remove(); document.body.style.overflow = 'auto';" class="flex-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 py-3 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-500 transition-all duration-200">Cancel</button>
-                            <button onclick="this.closest('.fixed').remove(); document.body.style.overflow = 'auto'; (${onConfirm.toString()})()" class="flex-1 bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-all duration-200">Delete</button>
+                            <button id="delete-cancel-btn" class="flex-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 py-3 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-500 transition-all duration-200">Cancel</button>
+                            <button id="delete-confirm-btn" class="flex-1 bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-all duration-200">Delete</button>
                         </div>
                     </div>
                 </div>
             `;
             document.body.appendChild(modal);
             document.body.style.overflow = 'hidden';
-            
+            // Set confirmation text and wire up buttons without serializing functions.
+            document.getElementById('delete-confirmation-text').textContent = `Are you sure you want to delete this ${itemType}? This action cannot be undone.`;
+            document.getElementById('delete-cancel-btn').addEventListener('click', function() { modal.remove(); document.body.style.overflow = 'auto'; });
+            document.getElementById('delete-confirm-btn').addEventListener('click', function() { modal.remove(); document.body.style.overflow = 'auto'; onConfirm(); });
+
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     modal.remove();
