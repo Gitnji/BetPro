@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\landing;
 use App\Models\Bets;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -14,8 +15,14 @@ class LandingController extends Controller
     public function index()
     {
         $bets = Bets::all();
-        return view('betpro.index', compact('bets'));
-    }
+        
+    $today = Carbon::today()->toDateString();
+
+    $records = Bets::whereDate('bet_date', $today)->get();
+
+    return view('betpro.index', compact('bets'));
+
+}
 
     /**
      * Show the form for creating a new resource.

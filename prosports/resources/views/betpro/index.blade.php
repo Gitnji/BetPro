@@ -133,8 +133,8 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Today's Free Tips</h2>
                 <p class="text-xl text-gray-600">Get a taste of our professional betting analysis</p>
             </div>
-            @foreach ($bets as $bet)
             <div class="grid md:grid-cols-3 gap-8">
+            @foreach ($bets as $bet)
                 <div class="bg-gray-50 rounded-lg p-6 border-l-4 border-accent">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-semibold text-gray-900">Premier League</h3>
@@ -171,11 +171,11 @@
                         <span>Kickoff: 21:00 CET</span>
                     </div>
                 </div> -->
+                @endforeach
             </div>
-            @endforeach
             <div class="text-center mt-8">
                 <button  class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200">
-                    <a href="register.html">Get More Premium Tips</a>
+                    <a href="{{ route('betpro.register') }}">Get More more Tips</a>
                 </button>
             </div>
         </div>

@@ -212,8 +212,9 @@
             </div>
 
             <!-- Tips Grid -->
-             @foreach ($bets as $bet)
+             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach ($bets as $bet)
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border-2 border-transparent hover:border-primary transition-all duration-200">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center space-x-3">
