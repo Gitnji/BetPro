@@ -14,13 +14,11 @@ class LandingController extends Controller
      */
     public function index()
     {
-        $bets = Bets::all();
-        
-    $today = Carbon::today()->toDateString();
+        // Only show bets that have the same date as today
+        $today = Carbon::today()->toDateString();
+        $bets = Bets::whereDate('bet_date', $today)->get();
 
-    $records = Bets::whereDate('bet_date', $today)->get();
-
-    return view('betpro.index', compact('bets'));
+        return view('betpro.index', compact('bets'));
 
 }
 
