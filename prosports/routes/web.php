@@ -16,19 +16,8 @@ Route::resource('users', AuthController::class);
 //     return view('betpro.index');
 // })->name('index');
 
-//optional route
-route::get('/',[LandingController::class, 'index'])->name('index');
 
-//get routes
-Route::get('/login', [AuthController::class, 'login'])->name('betpro.login');
-Route::get('/register', [AuthController::class,'register'] );
-Route::get('/admin', [AdminController::class, 'index'])->name('betpro.admin');
-
-Route::get('/user', [AuthController::class, 'user'])->name('betpro.dashboard');
-
-//route::get('/admin', [BetsController::class, 'index'])->name('betpro.admin');
-//route::post('/admin/addbets', [AdminController::class, 'storebets'])->name('betpro.addbets');
-
+//get routes - show forms
 Route::get('/login', function () {
     return view('betpro.login');
 })->name('betpro.login');
@@ -36,16 +25,18 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('betpro.register');
 })->name('betpro.register');
+// Admin routes
+Route::get('/admin', [AdminController::class, 'index'])->name('betpro.admin');
+Route::post('/admin/addbets', [AdminController::class, 'storebets'])->name('betpro.addbets');
 
-// Route::get('/admin', function () {
-//     return view('betpro.admin');
-// })->name('betpro.admin');
-// Route::get('/dashboard', function () {
-//     return view('betpro.dashboard');
-// })->name('betpro.dashboard');
+// User dashboard
+Route::get('/user', [AuthController::class, 'user'])->name('betpro.dashboard');
 
 //post routes
-Route::post('/login', [AuthController::class, 'login'])->name('betpro.login');
-Route::post('/register', [AuthController::class,'register'] )->name('betpro.register');
+Route::post('/login', [AuthController::class, 'login'])->name('betpro.signin');
+Route::post('/register', [AuthController::class,'register'] )->name('betpro.signup');
 
-route::post('/storebets',[AdminController::class, 'storebets'])->name('betpro.admin.storebets');
+Route::post('/storebets',[AdminController::class, 'storebets'])->name('betpro.admin.storebets');
+
+//optional route
+Route::get('/',[LandingController::class, 'index'])->name('index');

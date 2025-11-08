@@ -396,21 +396,21 @@
             });
         }
 
-        // Authentication functions
-        function loginUser() {
-            // Simulate login process
-            alert('Login successful! Redirecting to dashboard...');
-            closeModal('loginModal');
-            // In a real app, you would validate credentials and redirect
-            window.location.href = 'dashboard.html';
-        }
+        // // Authentication functions
+        // function loginUser() {
+        //     // Simulate login process
+        //     alert('Login successful! Redirecting to dashboard...');
+        //     closeModal('loginModal');
+        //     // In a real app, you would validate credentials and redirect
+        //     window.location.href = 'dashboard.html';
+        // }
 
-        function registerUser() {
-            // Simulate registration process
-            alert('Registration successful! Please check your email for verification.');
-            closeModal('registerModal');
-            // In a real app, you would send registration data to server
-        }
+        // function registerUser() {
+        //     // Simulate registration process
+        //     alert('Registration successful! Please check your email for verification.');
+        //     closeModal('registerModal');
+        //     // In a real app, you would send registration data to server
+        // }
 
 
 

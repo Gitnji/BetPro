@@ -39,7 +39,7 @@
         
         <!-- Login Form -->
         <div class="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 border border-gray-200 dark:border-gray-700 transition-colors duration-300">
-            <form class="space-y-6" id="login-form" method="POST" action="{{ route('betpro.login') }}">
+            <form class="space-y-6" id="login-form" method="POST" action="{{ route('betpro.signin') }}">
                 @csrf
                 <div class="space-y-5">
                     <div>
